@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       backgroundSize: {
-        "size-200": "200% 200%",
+        "size-300": "300% 300%",
       },
 
       backgroundPosition: {

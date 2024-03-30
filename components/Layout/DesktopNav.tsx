@@ -17,7 +17,7 @@ export default function DesktopNav({ color }: DesktopNavProps) {
       <li className="transition-all text-lg duration-200 hover:text-authorify-skyblue nav-link">
         <button onClick={() => setProductsMenu(!productsMenu)}>Products</button>
       </li>
-      {productsMenu && <Products />}
+      <Products toggle={productsMenu} />
       <li className="transition-all text-lg duration-200 hover:text-authorify-skyblue nav-link">
         <a href="https://authorify.com/pricing-plans/">Pricing</a>
       </li>

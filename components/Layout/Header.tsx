@@ -36,7 +36,7 @@ export default function Header() {
       <header
         id="header"
         ref={headerRef}
-        className="fixed z-10 top-0 left-0 flex items-center justify-between w-full h-20 text-white bg-gradient-to-b transition-all duration-300 bg-size-200 hover:bg-pos-0 bg-pos-100 from-black to-transparent"
+        className="fixed z-10 top-0 left-0 flex items-center justify-between w-full h-20 text-white bg-gradient-to-b transition-all duration-300 bg-size-300 bg-pos-100 from-black via-black/80 to-transparent"
       >
         <span className="container flex items-center justify-between px-3 gap-14 mx-auto">
           {/* LOGO */}
