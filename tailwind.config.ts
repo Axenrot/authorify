@@ -9,8 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       backgroundSize: {
-        "200": "200%",
+        "size-200": "200% 200%",
       },
+
+      backgroundPosition: {
+        "pos-0": "0% 0%",
+        "pos-100": "100% 100%",
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

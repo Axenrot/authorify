@@ -27,6 +27,28 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.nav-link {
+  position: relative;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: #67cbff;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

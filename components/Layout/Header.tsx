@@ -1,49 +1,56 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import MobileNav from "./MobileNav";
-// import { DesktopMenu } from "./Navigation/DesktopMenu";
+
 import Image from "next/image";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import DesktopNav from "./DesktopNav";
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [preventEffect, setPreventEffect] = useState(true);
+  const headerRef = useRef(null);
 
   useEffect(() => {
-    const headerElement = document.getElementById("header");
-
-    if (headerElement) {
-      const observer = new IntersectionObserver(([entry]) => {
-        setIsHeaderVisible(entry.isIntersecting);
+    if (!preventEffect) {
+      gsap.to(headerRef.current, {
+        backgroundPosition: "0% 0%", // altere os valores conforme necessário
+        ease: "none",
+        scrollTrigger: {
+          trigger: document.body, // agora o gatilho é a janela, já que o cabeçalho é fixo
+          start: "10px top", // quando o topo da janela de visualização atinge o topo
+          end: "10% top", // quando a parte inferior da janela de visualização atinge o topo
+          scrub: true,
+        },
       });
-
-      observer.observe(headerElement);
-
-      return () => {
-        observer.unobserve(headerElement);
-      };
+    } else {
+      gsap.registerPlugin(ScrollTrigger);
+      setPreventEffect(false);
     }
-  }, []);
+  }, [preventEffect]);
 
   return (
     <>
       <header
         id="header"
-        className="absolute top-0 left-0 flex items-center justify-between w-full h-20 text-white bg-gradient-to-b bg-size-200 from-black to-blue-blue7"
+        ref={headerRef}
+        className="fixed z-10 top-0 left-0 flex items-center justify-between w-full h-20 text-white bg-gradient-to-b transition-all duration-300 bg-size-200 hover:bg-pos-0 bg-pos-100 from-black to-transparent"
       >
-        <span className="container flex items-center justify-between px-3 mx-auto">
+        <span className="container flex items-center justify-between px-3 gap-14 mx-auto">
           {/* LOGO */}
-          <span className="flex gap-2 items-center justify-center text-black">
+          <span className="flex gap-2 items-center select-none justify-center text-white">
             <Image
-              src="/authorify_logo_black.png"
-              alt="Logo"
+              src="/logo-white.png"
+              alt="Authorify Logo"
               width={50}
               height={50}
             />
             <span className="title">authorify</span>
           </span>
 
-          <nav className="relative flex items-center h-20">
+          <nav className="w-full flex items-center h-20">
             <button
               className="transition-all duration-200 md:hidden fadein active:scale-110"
               onClick={() => setShowMenu((old) => !old)}
@@ -52,41 +59,12 @@ export default function Header() {
               {/* <AiOutlineMenu className="text-3xl text-white transition-all duration-200 cursor-pointer hover:text-blue-200" /> */}
             </button>
 
-            {showMenu && isHeaderVisible && <MobileNav showMenu={showMenu} />}
+            {showMenu && <MobileNav showMenu={showMenu} />}
 
-            {/* <DesktopMenu color={"white"} /> */}
+            <DesktopNav />
           </nav>
         </span>
       </header>
-
-      <div
-        className={`${
-          isHeaderVisible && "-translate-y-full"
-        } transition-all duration-500 fixed top-0 left-0 z-50 flex items-center justify-between w-full h-20 text-blue-blue6 bg-gradient-to-b from-white to-gray-300 shadow-md shadow-black/30`}
-      >
-        <span className="container flex items-center justify-between px-3 mx-auto">
-          <Image
-            src="/authorify_logo_black.png"
-            alt="Logo"
-            width={50}
-            height={50}
-          />
-
-          <nav className="relative flex items-center h-20">
-            <button
-              className="transition-all duration-200 md:hidden fadein active:scale-110"
-              onClick={() => setShowMenu((old) => !old)}
-            >
-              MENU
-              {/* <AiOutlineMenu className="text-3xl transition-all duration-200 cursor-pointer hover:text-blue-200 text-blue-blue6" /> */}
-            </button>
-
-            {showMenu && !isHeaderVisible && <MobileNav showMenu={showMenu} />}
-
-            {/* <DesktopMenu color={"blue-blue6"} /> */}
-          </nav>
-        </span>
-      </div>
     </>
   );
 }
