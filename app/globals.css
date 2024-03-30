@@ -17,6 +17,44 @@
   }
 }
 
+/* Firefox */
+* {
+  scrollbar-width: 8px;
+  scrollbar-color: #1f1f1f;
+}
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 10px !important;
+  width: 10px !important;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #000000 !important;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #000000 !important;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #000000 !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 3px !important;
+  background-color: #39c0ed !important;
+  border: 2px solid #000000 !important;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #39c0ed !important;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #39c0ed !important;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -58,5 +96,12 @@ body {
 @layer components {
   .title {
     @apply font-bold font-montserrat text-3xl;
+  }
+  .btn-primary {
+    @apply flex items-center justify-center transition-all duration-200 text-white text-base font-medium active:px-[16px] py-[8px] px-[18px] border border-white/5 rounded-md bg-authorify-blue hover:bg-white hover:text-authorify-blue whitespace-nowrap uppercase;
+  }
+
+  .btn-secondary {
+    @apply flex items-center justify-center transition-all duration-200 text-white text-base font-medium active:px-[16px] py-[8px] px-[18px] border border-white/5 rounded-md bg-black/5 hover:bg-white hover:text-black whitespace-nowrap uppercase;
   }
 }

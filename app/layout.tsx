@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} debug-screens`}>
+      <body className={`${inter.className} font-montserrat debug-screens`}>
         <Header />
         {children}
       </body>

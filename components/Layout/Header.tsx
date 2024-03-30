@@ -38,21 +38,22 @@ export default function Header() {
         ref={headerRef}
         className="fixed z-10 top-0 left-0 flex items-center justify-between w-full h-20 text-white bg-gradient-to-b transition-all duration-300 bg-size-300 bg-pos-100 from-black via-black/80 to-transparent"
       >
-        <span className="container flex items-center justify-between px-3 gap-14 mx-auto">
+        <span className="container px-3 flex items-center justify-between gap-14 mx-auto">
           {/* LOGO */}
-          <span className="flex gap-2 items-center select-none justify-center text-white">
+          <span className="w-[210px] lg:w-[300px] flex gap-2 items-center select-none justify-start text-white">
             <Image
               src="/logo-white.png"
               alt="Authorify Logo"
+              className="w-[30px] lg:w-[50px]"
               width={50}
               height={50}
             />
-            <span className="title">authorify</span>
+            <span className="title text-xl lg:text-3xl">authorify</span>
           </span>
 
           <nav className="w-full flex items-center h-20">
             <button
-              className="transition-all duration-200 md:hidden fadein active:scale-110"
+              className="ml-auto transition-all duration-200 md:hidden fadein active:scale-110"
               onClick={() => setShowMenu((old) => !old)}
             >
               Menu
