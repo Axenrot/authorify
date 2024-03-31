@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export default function Book(props) {
   const { nodes, materials } = useGLTF("/models/book.glb");
 
-  const texture = useTexture(`/images/cover3.png`);
+  const texture = useTexture(`/images/bookcover.png`);
   const bookCover = new THREE.MeshStandardMaterial({
     map: texture,
     metalness: 0.5, // between 0 and 1, higher values make the material look more like a metal
