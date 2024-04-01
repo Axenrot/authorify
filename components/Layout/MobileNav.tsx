@@ -8,28 +8,28 @@ export default function MobileNav({ showMenu }: MobileNavProps) {
   return (
     <ul
       data-show={showMenu}
-      className="absolute right-0 top-full bg-gray-100/95 shadow-lg shadow-black/60 rounded-md p-2 flex flex-col md:hidden fadein gap-2 text-blue-blue6"
+      className="absolute right-0 top-full bg-gray-100/95 shadow-lg text-black shadow-black/60 rounded-md p-3 border-2 border-authorify-blue flex flex-col md:hidden fadein gap-2"
     >
-      <li className="transition-all duration-200 hover:scale-105">
+      <li className="transition-all duration-200 font-medium hover:scale-105 hover:text-authorify-blue">
         <a href="#sobre">Product</a>
       </li>
-      <li className="transition-all duration-200 hover:scale-105">
+      <li className="transition-all duration-200 font-medium hover:scale-105 hover:text-authorify-blue">
         <a href="#parceiras">Pricing</a>
       </li>
-      <li className="transition-all duration-200 hover:scale-105">
+      <li className="transition-all duration-200 font-medium hover:scale-105 hover:text-authorify-blue">
         <a href="#solucoes">Book Library</a>
       </li>
-      <li className="transition-all duration-200 hover:scale-105">
+      <li className="transition-all duration-200 font-medium hover:scale-105 hover:text-authorify-blue">
         <a href="#solucoes">Results</a>
       </li>
       <Link
-        className="flex items-center justify-center text-white bg-blue-blue6 text-base font-medium w-24 border duration-200 border-blue-blue6 rounded-md hover:scale-105"
+        className="font-bold text-base text-start w-24 border duration-200 hover:scale-105 hover:text-authorify-blue"
         href="https://app.authorify.com/auth/login"
       >
         Login
       </Link>
       <Link
-        className="flex items-center justify-center text-white bg-blue-blue6 text-base font-medium w-24 border duration-200 border-blue-blue6 rounded-md hover:scale-105"
+        className="whitespace-nowrap font-bold text-base text-start w-24 border duration-200 hover:scale-105 hover:text-authorify-blue"
         href="https://authorify.com/sample-book"
       >
         Free Sample

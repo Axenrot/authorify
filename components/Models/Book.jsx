@@ -3,7 +3,14 @@ import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { animateBook, enterScene, animateOnScroll } from "@/utils/animations";
+import {
+  animateBook,
+  enterScene,
+  animateOnScroll,
+  brokersReveal,
+  brokersTitleReveal,
+  authorifyReveal,
+} from "@/utils/animations";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 export default function Book(props) {
@@ -31,6 +38,9 @@ export default function Book(props) {
     if (!preventEffect) {
       enterScene(bookRef);
       animateOnScroll(bookParentRef);
+      brokersReveal();
+      brokersTitleReveal();
+      authorifyReveal();
     } else {
       gsap.registerPlugin(ScrollTrigger);
       setPreventEffect(false);

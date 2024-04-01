@@ -11,7 +11,7 @@ export function animateOnScroll(ref: MutableRefObject<THREE.Group>) {
     gsap.to(ref.current.position, {
       x: -2,
       y: -1,
-      z: 20,
+      z: 10,
       ease: "none",
       scrollTrigger: {
         trigger: "#heroCanva",
@@ -136,3 +136,94 @@ export function enterPhone(ref: MutableRefObject<THREE.Group>) {
     }
   );
 }
+
+export function brokersReveal() {
+  gsap.fromTo(
+    ".broker",
+    {
+      opacity: 0,
+      translateY: -50,
+    },
+    {
+      opacity: 1,
+      duration: 0.2,
+      delay: 0.2,
+      translateY: 0,
+      stagger: 0.1,
+      // delay: 0.2,
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: ".broker",
+        start: "top bottom",
+        toggleActions: "play none resume reset",
+      },
+    }
+  );
+}
+
+export function brokersTitleReveal() {
+  gsap.fromTo(
+    ".broker-title",
+    {
+      opacity: 0,
+      letterSpacing: "0.25em",
+      lineHeight: "0%",
+      // translateY: -50,
+    },
+    {
+      opacity: 1,
+      lineHeight: "100%",
+      letterSpacing: "0.1em",
+      duration: 2,
+      delay: 0.2,
+      translateY: 0,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: ".broker-title",
+        start: "top bottom",
+        toggleActions: "play none resume reset",
+      },
+    }
+  );
+}
+
+export function authorifyReveal() {
+  gsap.fromTo(
+    ".logo",
+    {
+      opacity: 0,
+      translateY: -50,
+    },
+    {
+      opacity: 1,
+      duration: 0.2,
+      delay: 0.2,
+      translateY: 0,
+      stagger: 0.1,
+      // delay: 0.2,
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: ".logo",
+        start: "top bottom",
+        toggleActions: "play none resume reset",
+      },
+    }
+  );
+}
+
+// 0% {
+//   line-height: 0%;
+//   letter-spacing: 0.25em;
+//   opacity: 0;
+// }
+// 25% {
+//   line-height: 0%;
+//   opacity: 0%;
+// }
+// 80% {
+//   opacity: 100%;
+// }
+// 100% {
+//   line-height: 100%;
+//   opacity: 100%;
+// }

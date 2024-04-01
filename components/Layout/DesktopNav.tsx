@@ -12,7 +12,7 @@ export default function DesktopNav({ color }: DesktopNavProps) {
     <ul
       className={`${
         color ? `text-${color}` : "text-white"
-      } hidden w-full fadein md:flex h-full items-center gap-6`}
+      } hidden w-full md:flex h-full items-center gap-6`}
     >
       <li className="transition-all text-sm lg:text-lg duration-200 hover:text-authorify-skyblue h-fit nav-link">
         <button onClick={() => setProductsMenu(!productsMenu)}>Products</button>

@@ -44,20 +44,32 @@ export default function Header() {
             <Image
               src="/logo-white.png"
               alt="Authorify Logo"
-              className="w-[30px] lg:w-[50px]"
+              className="w-[30px] lg:w-[50px] logo"
               width={50}
               height={50}
             />
-            <span className="title text-xl lg:text-3xl">authorify</span>
+            <span className="flex title text-xl lg:text-3xl">
+              {"authorify".split("").map((letter, index) => (
+                <p key={"letter-" + index} className="logo">
+                  {letter}
+                </p>
+              ))}
+            </span>
           </span>
 
-          <nav className="w-full flex items-center h-20">
+          <nav className="w-full flex items-center h-20 sceneFadeIn">
             <button
-              className="ml-auto transition-all duration-200 md:hidden fadein active:scale-110"
+              className="ml-auto transition-all duration-200 md:hidden  active:scale-110"
               onClick={() => setShowMenu((old) => !old)}
             >
-              Menu
-              {/* <AiOutlineMenu className="text-3xl text-white transition-all duration-200 cursor-pointer hover:text-blue-200" /> */}
+              <Image
+                src="/hamburger.svg"
+                alt="Menu Icon"
+                className="w-[50px] invert transition-all  duration-200 cursor-pointer"
+                width={50}
+                height={50}
+              />
+              {/* <AiOutlineMenu className="text-3xl " /> */}
             </button>
 
             {showMenu && <MobileNav showMenu={showMenu} />}
