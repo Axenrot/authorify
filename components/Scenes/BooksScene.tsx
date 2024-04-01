@@ -3,6 +3,7 @@ import { Canvas, useThree, extend } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import Book from "@/components/Models/Book";
+import Phone from "@/components/Models/Phone";
 import BookAnim from "@/components/Models/BookAnim";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
@@ -71,11 +72,17 @@ const Controls = () => {
 const BooksScene = ({ index = 1 }) => {
   const { width } = useWindowDimensions();
   const cameraPosition = new THREE.Vector3(-0.8, 1.3, 10);
-  const bookPosition = useRef<object>(width < 1024 ? [0, 5, -6] : [8, 0, -6]);
+  const phonePosition = useRef<object>(width < 1024 ? [-3, -5, 0] : [5, -3, 0]);
+  const bookPosition = useRef<object>(width < 1024 ? [1, -5, -6] : [6, 0, -6]);
+  const bookRotation = useRef<object>(
+    width < 1024 ? [0, -0.55, 0.05] : [0, -0.9, 0.05]
+  );
   const dirLight = useRef<THREE.DirectionalLight>(null);
 
   useEffect(() => {
-    bookPosition.current = width < 1024 ? [0, 5, -6] : [8, 0, -6];
+    phonePosition.current = width < 1024 ? [-3, -5, 0] : [5, -3, 0];
+    bookPosition.current = width < 1024 ? [1, -5, -6] : [6, 0, -6];
+    bookRotation.current = width < 1024 ? [0, -0.55, 0.05] : [0, -0.9, 0.05];
   }, [width]);
 
   return (
@@ -86,37 +93,26 @@ const BooksScene = ({ index = 1 }) => {
         <ambientLight intensity={1.4} />
         <directionalLight
           ref={dirLight}
-          intensity={1}
-          position={[-30, 5, 60]}
+          intensity={2.2}
+          position={[-15, 10, 10]}
         />
         <directionalLight
           ref={dirLight}
-          intensity={2}
-          position={[50, 10, -40]}
+          intensity={2.2}
+          position={[10, 10, 10]}
         />
 
         {/* <Controls /> */}
 
-        {/* <BookAnim
-          position={[0, 0, 0]}
-          scale={[1, 1, 1]}
-          rotation={[1.2, 0, 0.5]}
+        {/* <Phone
+          scale={[0.5, 0.5, 0.5]}
+          position={phonePosition.current}
+          rotation={[Math.PI, -Math.PI / 2, Math.PI / 2]}
         /> */}
-        {/* <Book
-          scale={[10, 10, 10]}
-          position={[4, -3, -4]}
-          rotation={[1.5, 0, 0.4]}
-        />
         <Book
-          scale={[10, 10, 10]}
-          position={[6, -1.5, -5]}
-          rotation={[1.5, 0, 0.4]}
-        /> */}
-
-        <Book
-          scale={[10, 10, 10]}
+          scale={[8, 10, 20]}
           position={bookPosition.current}
-          rotation={[1.5, 0, 0.4]}
+          rotation={bookRotation.current}
         />
         {/* <Phone
           position={[-4, -0.2, 2.7]}

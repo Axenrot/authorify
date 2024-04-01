@@ -1,124 +1,73 @@
-import { useEffect, useRef } from "react";
-import { useGLTF } from "@react-three/drei";
+import React, { useEffect, useRef } from "react";
+import { useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
+import { animatePhone, enterPhone } from "@/utils/animations";
 
-export function Phone({ selectedOption, ...props }) {
-  const { nodes, materials } = useGLTF("/models/old_phone.glb");
-  const width = 9;
-  const height = 16;
-  const geometry = new THREE.PlaneGeometry(width, height);
-  const textureLoader = new THREE.TextureLoader();
-  const texture = useRef(null);
-  texture.current = textureLoader.load(
-    `/assets/screens/${selectedOption}-mobile.png`
-  );
+export default function Phone(props) {
+  const { nodes, materials } = useGLTF("/models/smartphone.glb");
+  const phoneRef = useRef(null);
 
-  useEffect(() => {
-    texture.current = textureLoader.load(
-      `/assets/screens/${selectedOption}-mobile.png`
-    );
-
-    //eslint-disable-next-line
-  }, [selectedOption]);
-
-  // Create a material with the loaded texture
-  const bodyMaterial = new THREE.MeshBasicMaterial({
-    map: texture.current,
-    opacity: 0.9,
-    transparent: true,
+  const shinyBlackMaterial = new THREE.MeshStandardMaterial({
+    color: 0x39c0ed, // black
+    metalness: 1, // make it very metallic
+    roughness: 0, // make it very smooth/shiny
   });
+
+  const texture = useTexture(`/images/cover-phone.png`);
+  const phoneScreen = new THREE.MeshStandardMaterial({
+    map: texture,
+    metalness: 0.5, // between 0 and 1, higher values make the material look more like a metal
+    roughness: 0.4,
+    transparent: true,
+    opacity: 0.9,
+  });
+
+  function createRoundedRect(width, height, radius) {
+    var shape = new THREE.Shape();
+    shape.moveTo(radius, 0);
+    shape.lineTo(width - radius, 0);
+    shape.quadraticCurveTo(width, 0, width, radius);
+    shape.lineTo(width, height - radius);
+    shape.quadraticCurveTo(width, height, width - radius, height);
+    shape.lineTo(radius, height);
+    shape.quadraticCurveTo(0, height, 0, height - radius);
+    shape.lineTo(0, radius);
+    shape.quadraticCurveTo(0, 0, radius, 0);
+    return shape;
+  }
+
+  // Create a shape for the iPhone screen
+  var shape = createRoundedRect(1, 1.05, 0.15);
+
+  // Create a geometry from the shape
+  var geometry = new THREE.ShapeGeometry(shape);
+
+  // Create a material
+  var material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+  // useEffect(() => {
+  //   animatePhone(phoneRef);
+  //   enterPhone(phoneRef);
+  // }, []);
   return (
-    <group {...props} dispose={null}>
+    <group ref={phoneRef} {...props} dispose={null}>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Object_4.geometry}
+        material={shinyBlackMaterial}
+        rotation={[0, 0, 0]}
+      />
+
       <mesh
         castShadow
         receiveShadow
         geometry={geometry}
-        material={bodyMaterial}
-        // position={[-7.625, -0.488, 21.35]}
-        position={[0, 0.075, 0]}
-        rotation={[-Math.PI / 2, 0, Math.PI]}
-        scale={0.26}
+        material={phoneScreen}
+        scale={[5.5, 10.9, 5]}
+        rotation={[-Math.PI / 2, 0, Math.PI / 2]}
+        position={[-0.08, 0.32, 2.75]}
       />
-
-      <group scale={0.1}>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pasted__pasted__pCube2_lambert1_0.geometry}
-          material={materials.lambert1}
-          position={[-7.625, -0.488, 21.35]}
-          rotation={[-0.852, 0, Math.PI]}
-          scale={[3.378, 0.225, 0.948]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pCube1_lambert1_0.geometry}
-          material={materials.lambert1}
-          scale={[25.13, 4.139, 43.549]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pCylinder2_lambert1_0.geometry}
-          material={materials.lambert1}
-          position={[0, 0.082, 19.328]}
-          scale={0.693}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pasted__pasted__pasted__pCube2_lambert1_0.geometry}
-          material={materials.lambert1}
-          position={[-12.125, -0.488, 16.738]}
-          rotation={[-1.407, -1.485, 1.744]}
-          scale={[1.619, 0.257, 0.479]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pasted__pCube2_lambert1_0.geometry}
-          material={materials.lambert1}
-          position={[0, -0.499, -21.284]}
-          rotation={[-1.467, 0, -Math.PI]}
-          scale={[-7.751, 0.109, 0.637]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pCylinder3_lambert1_0.geometry}
-          material={materials.lambert1}
-          position={[8.888, -0.424, 21.236]}
-          rotation={[2.277, 0, 0]}
-          scale={[0.616, 0.142, 0.616]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pasted__pasted__pCube3_lambert1_0.geometry}
-          material={materials.lambert1}
-          position={[-12.125, -0.488, 8.257]}
-          rotation={[-1.466, -1.485, 1.681]}
-          scale={[2.555, 0.257, 0.479]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pasted__pCube3_lambert1_0.geometry}
-          material={materials.lambert1}
-          position={[-12.125, -0.488, 11.213]}
-          rotation={[-1.466, -1.485, 1.681]}
-          scale={[2.555, 0.257, 0.479]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.pasted__pCylinder2_lambert1_0.geometry}
-          material={materials.lambert1}
-          position={[-7.711, -1.4, 17.18]}
-          scale={[1.194, 0.71, 1.194]}
-        />
-      </group>
     </group>
   );
 }

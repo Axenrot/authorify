@@ -17,9 +17,19 @@ const Hero = () => {
             </p>
           </h1>
         </div>
-        {/* hero image */}
+        {/* hero image label */}
+        <div className="relative z-20 flex w-full justify-center h-[30vh] lg:justify-start lg:w-1/2 lg:h-full">
+          <h2 className="absolute bottom-[15vh] flex flex-col items-center justify-center">
+            <p className="text-2xl lg:text-2xl font-semibold">
+              You can instantly transform into a
+            </p>
+            <p className="font-semibold font-montserrat text-authorify-skyblue underline text-2xl lg:text-4xl">
+              Trusted Authority.
+            </p>
+          </h2>
+        </div>
       </div>
-      <div className="lg:absolute w-full h-1/2 lg:h-full flex items-center juystify-center">
+      <div className="absolute w-full h-full flex items-center juystify-center">
         <BooksScene />
       </div>
     </section>
