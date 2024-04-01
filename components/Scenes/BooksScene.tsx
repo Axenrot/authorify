@@ -80,9 +80,9 @@ function handlePosition(width: number) {
     case width <= 1536: // 'xl'
       return [0.75, 0.2, 0];
     case width <= 1700: // '2xl'
-      return [1.1, 0.2, 0];
-    default:
       return [1.05, 0.2, 0];
+    default:
+      return [0.9, 0.2, 0];
   }
 }
 
@@ -124,6 +124,20 @@ function handleRotation(width: number) {
   }
 }
 
+function frontLightPosition(width: number) {
+  let pos = handlePosition(width);
+
+  let output = new THREE.Vector3(pos[0], pos[1] + 3, pos[2] + 10);
+  return output;
+}
+
+function backLightPosition(width: number) {
+  let pos = handlePosition(width);
+
+  let output = new THREE.Vector3(pos[0], pos[1] + 3, pos[2] - 10);
+  return output;
+}
+
 const BooksScene = ({ index = 1 }) => {
   const { width, height } = useWindowDimensions();
   const cameraPosition = new THREE.Vector3(0, 0, 10);
@@ -150,16 +164,16 @@ const BooksScene = ({ index = 1 }) => {
           position: cameraPosition,
         }}
       >
-        <ambientLight intensity={1.4} />
+        <ambientLight intensity={1} />
         <directionalLight
           ref={dirLight}
-          intensity={2.2}
-          position={[-15, 10, 10]}
+          intensity={1}
+          position={backLightPosition(width)}
         />
         <directionalLight
           ref={dirLight}
-          intensity={2.2}
-          position={[10, 10, 10]}
+          intensity={2}
+          position={frontLightPosition(width)}
         />
 
         {/* <Controls /> */}
@@ -174,6 +188,7 @@ const BooksScene = ({ index = 1 }) => {
           position={bookPosition.current}
           rotation={bookRotation.current}
         />
+
         {/* <Phone
           position={[-4, -0.2, 2.7]}
           rotation={[1.2, Math.PI, 0]}

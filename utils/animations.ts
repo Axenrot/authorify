@@ -9,29 +9,29 @@ gsap.registerPlugin(ScrollTrigger);
 export function animateOnScroll(ref: MutableRefObject<THREE.Group>) {
   if (ref.current) {
     gsap.to(ref.current.position, {
-      x: -4,
-      y: 1,
-      z: 5,
+      x: -2,
+      y: -1,
+      z: 20,
       ease: "none",
       scrollTrigger: {
         trigger: "#heroCanva",
         start: "10px top",
         end: "100% top",
         scrub: 2,
-        markers: true,
       },
     });
 
     gsap.to(ref.current.rotation, {
-      z: -5,
-      // y: 0,
+      z: -1,
+      y: 2,
+      x: -2,
       ease: "none",
       scrollTrigger: {
         trigger: "#heroCanva",
         start: "10px top",
         end: "100% top",
+        pin: true,
         scrub: 2,
-        markers: true,
       },
     });
   }

@@ -13,7 +13,7 @@ export default function Book(props) {
   const texture = useTexture(`/images/cover.png`);
   const bookCover = new THREE.MeshStandardMaterial({
     map: texture,
-    metalness: 0.5, // between 0 and 1, higher values make the material look more like a metal
+    metalness: 0, // between 0 and 1, higher values make the material look more like a metal
     roughness: 0.4,
   });
   const bookFace = new THREE.PlaneGeometry(0.72, 1.0);
@@ -30,7 +30,7 @@ export default function Book(props) {
   useEffect(() => {
     if (!preventEffect) {
       enterScene(bookRef);
-      // animateOnScroll(bookParentRef);
+      animateOnScroll(bookParentRef);
     } else {
       gsap.registerPlugin(ScrollTrigger);
       setPreventEffect(false);
