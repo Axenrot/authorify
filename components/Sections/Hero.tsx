@@ -6,7 +6,7 @@ const Hero = () => {
       <div className="bg-black w-full h-full absolute blur-[1px] bg-[url('/images/header-bg-transformed.jpeg')] bg-cover" />
       <div className="px-3 items-center container mx-auto h-full blur-none py-12 flex flex-col gap-12 lg:flex-row">
         {/* hero message */}
-        <div className="flex w-full  justify-center h-[30vh] lg:justify-start lg:w-1/2 lg:h-full">
+        <div className="flex w-full  justify-center h-[30vh] lg:justify-start lg:w-1/2 lg:h-full text-center">
           <h1 className="flex flex-col items-center lg:items-start justify-center">
             <p className="text-2xl lg:text-3xl font-semibold">Authorify is a</p>{" "}
             <p className="font-semibold font-montserrat text-authorify-skyblue underline text-2xl lg:text-4xl">
@@ -18,12 +18,12 @@ const Hero = () => {
           </h1>
         </div>
         {/* hero image label */}
-        <div className="relative z-20 flex w-full justify-center h-[30vh] lg:justify-start lg:w-1/2 lg:h-full">
-          <h2 className="absolute bottom-[15vh] flex flex-col items-center justify-center">
-            <p className="text-2xl lg:text-2xl font-semibold">
+        <div className="relative z-20 flex w-full justify-center h-[70vh] lg:justify-center lg:w-1/2 lg:h-full">
+          <h2 className="absolute bottom-[15vh] flex flex-col items-center justify-center text-center">
+            <p className="text-lg sm:text-xl md:text-2xl font-semibold">
               You can instantly transform into a
             </p>
-            <p className="font-semibold font-montserrat text-authorify-skyblue underline text-2xl lg:text-4xl">
+            <p className="font-semibold font-montserrat text-authorify-skyblue underline text-2xl md:text-3xl lg:text-4xl">
               Trusted Authority.
             </p>
           </h2>
