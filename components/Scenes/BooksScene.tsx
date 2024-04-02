@@ -1,71 +1,59 @@
 "use client";
-import { Canvas, useThree, extend } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import Book from "@/components/Models/Book";
-import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
+import { useEffect, useRef } from "react";
 import useWindowDimensions from "@/hooks/useWindowDimensions";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// extend({ OrbitControls });
+const BooksScene = () => {
+  const { width, height } = useWindowDimensions();
+  const cameraPosition = new THREE.Vector3(0, 0, 10);
 
-// const Controls = () => {
-//   const { camera, gl } = useThree();
-//   const { width } = useWindowDimensions();
-//   const cameraDistance = useRef<number>(width < 768 ? 10 : 10);
+  const bookScale = useRef<object>(handleScale(width));
+  const bookPosition = useRef<object>(handlePosition(width));
+  const bookRotation = useRef<object>(handleRotation(width));
+  const dirLight = useRef<THREE.DirectionalLight>(null);
 
-//   const controlsRef = useRef<any>();
+  useEffect(() => {
+    bookScale.current = handleScale(width);
+    bookPosition.current = handlePosition(width);
+    bookRotation.current = handleRotation(width);
+  }, [width]);
 
-//   useEffect(() => {
-//     cameraDistance.current = width < 768 ? 15 : 12;
-//   }, [width]);
+  return (
+    <span id="heroCanva" className="relative h-[100vh] w-full flex flex-col">
+      <Canvas
+        camera={{
+          fov: 20,
+          aspect: width / height,
+          near: 0.01,
+          far: 1000,
+          position: cameraPosition,
+        }}
+      >
+        <ambientLight intensity={1} />
+        <directionalLight
+          ref={dirLight}
+          intensity={1}
+          position={backLightPosition(width)}
+        />
+        <directionalLight
+          ref={dirLight}
+          intensity={2}
+          position={frontLightPosition(width)}
+        />
 
-//   useEffect(() => {
-//     const handleMouseMove = (event: MouseEvent) => {
-//       // Check if the left mouse button is pressed
-//       const LEFT_MOUSE_BUTTON_VALUE = 1;
-//       if (event.buttons !== LEFT_MOUSE_BUTTON_VALUE) {
-//         const { clientX, clientY } = event;
-//         const mouseX = (clientX / window.innerWidth) * 2 - 1;
-//         const mouseY = -(clientY / window.innerHeight) * 2 + 1;
+        <Book
+          scale={bookScale.current}
+          position={bookPosition.current}
+          rotation={bookRotation.current}
+        />
+      </Canvas>
+    </span>
+  );
+};
 
-//         // Update the OrbitControls target based on mouse movement
-//         const targetX = mouseX * 2;
-//         const targetY = mouseY * 1;
-
-//         gsap.to(controlsRef.current.target, {
-//           x: targetX,
-//           y: targetY,
-//           z: 0,
-//           duration: 0.5,
-//         });
-//       }
-//     };
-
-//     const isMobile = window.innerWidth <= 768;
-//     if (!isMobile) {
-//       window.addEventListener("mousemove", handleMouseMove);
-//     }
-//     return () => {
-//       window.removeEventListener("mousemove", handleMouseMove);
-//     };
-//   }, []);
-
-//   return (
-//     <OrbitControls
-//       ref={controlsRef}
-//       args={[camera, gl.domElement]}
-//       enablePan={true}
-//       // minDistance={cameraDistance.current}
-//       // maxDistance={cameraDistance.current}
-//       // minAzimuthAngle={-0.3}
-//       // maxAzimuthAngle={0.3}
-//       // minPolarAngle={1}
-//       // maxPolarAngle={1.8}
-//     />
-//   );
-// };
+export default BooksScene;
 
 function handlePosition(width: number) {
   switch (true) {
@@ -137,65 +125,3 @@ function backLightPosition(width: number) {
   let output = new THREE.Vector3(pos[0], pos[1] + 3, pos[2] - 10);
   return output;
 }
-
-const BooksScene = ({ index = 1 }) => {
-  const { width, height } = useWindowDimensions();
-  const cameraPosition = new THREE.Vector3(0, 0, 10);
-
-  const bookScale = useRef<object>(handleScale(width));
-  const bookPosition = useRef<object>(handlePosition(width));
-  const bookRotation = useRef<object>(handleRotation(width));
-  const dirLight = useRef<THREE.DirectionalLight>(null);
-
-  useEffect(() => {
-    bookScale.current = handleScale(width);
-    bookPosition.current = handlePosition(width);
-    bookRotation.current = handleRotation(width);
-  }, [width]);
-
-  return (
-    <span id="heroCanva" className="relative h-[100vh] w-full flex flex-col">
-      <Canvas
-        camera={{
-          fov: 20,
-          aspect: width / height,
-          near: 0.01,
-          far: 1000,
-          position: cameraPosition,
-        }}
-      >
-        <ambientLight intensity={1} />
-        <directionalLight
-          ref={dirLight}
-          intensity={1}
-          position={backLightPosition(width)}
-        />
-        <directionalLight
-          ref={dirLight}
-          intensity={2}
-          position={frontLightPosition(width)}
-        />
-
-        {/* <Controls /> */}
-
-        {/* <Phone
-          scale={[0.5, 0.5, 0.5]}
-          position={phonePosition.current}
-          rotation={[Math.PI, -Math.PI / 2, Math.PI / 2]}
-        /> */}
-        <Book
-          scale={bookScale.current}
-          position={bookPosition.current}
-          rotation={bookRotation.current}
-        />
-
-        {/* <Phone
-          position={[-4, -0.2, 2.7]}
-          rotation={[1.2, Math.PI, 0]}
-        /> */}
-      </Canvas>
-    </span>
-  );
-};
-
-export default BooksScene;

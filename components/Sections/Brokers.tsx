@@ -1,20 +1,14 @@
 // "use client";
 import fs from "fs";
-import { brokersReveal } from "@/utils/animations";
 import Image from "next/image";
-import { useEffect } from "react";
 
 const Brokers = () => {
   const images = fs
     .readdirSync("./public/images/companies")
     .map((file) => `/images/companies/${file}`);
 
-  // useEffect(() => {
-  //
-  // }, []);
-
   return (
-    <section className="relative flex-col h-fit w-full flex items-center bg-black shadow-xl shadow-black justify-center text-white">
+    <section className="relative flex-col h-fit w-full flex items-center bg-black  justify-center text-white">
       <div className="px-3 items-center container mx-auto h-full blur-none py-24 flex flex-col gap-12">
         {/* Brokers message */}
 
